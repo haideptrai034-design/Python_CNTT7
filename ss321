@@ -1,1 +1,69 @@
+parking_lot = []
+current_id = 1 
+while True:
+    print("\n" + "="*45)
+    print("      QUẢN LÝ BÃI XE - SMART PARKING")
+    print("="*45)
+    print("1. Thêm xe mới vào bãi")
+    print("2. Hiển thị danh sách xe trong bãi")
+    print("3. Xóa xe khỏi bãi (khi xe ra)")
+    print("4. Thoát chương trình")
+    print("="*45)
+    choice = input("Nhập lựa chọn của bạn (1-4): ").strip()
+    if choice == '1':
+        print("\n--- THÊM XE MỚI ---")
+        while True:
+            vehicle_type = input("Nhập loại xe: ").strip()
+            if vehicle_type != "":
+                break
+            print("Lỗi: Loại xe không được để trống. Vui lòng nhập lại!")
+        while True:
+            owner = input("Nhập tên chủ xe: ").strip()
+            if owner != "":
+                break
+            print("Lỗi: Tên chủ xe không được để trống. Vui lòng nhập lại!")
+        new_vehicle = {
+            'id': current_id,
+            'type': vehicle_type,
+            'owner': owner
+        }
+        parking_lot.append(new_vehicle)
+        print(f"Thêm thành công! Đã cấp phát ID: {current_id}")
+        current_id += 1
+    elif choice == '2':
+        print("\n--- DANH SÁCH XE TRONG BÃI ---")
+        
+        if len(parking_lot) == 0:
+            print("Bãi xe hiện đang trống!")
+        else:
+            print(f"{'ID':<5} | {'Loại xe':<15} | {'Chủ xe':<20}")
+            print("-" * 46)
+            for vehicle in parking_lot:
+                print(f"{vehicle['id']:<5} | {vehicle['type']:<15} | {vehicle['owner']:<20}")
+    elif choice == '3':
+        print("\n--- XÓA XE KHỎI BÃI ---")
+        
+        try:
+            delete_id = int(input("Nhập ID của xe cần xóa: "))
+            is_found = False
+            for i in range(len(parking_lot)):
+                if parking_lot[i]['id'] == delete_id:
+                    del parking_lot[i]
+                    is_found = True
+                    print(f"Đã xóa xe ID {delete_id} thành công!")
+                    break
+                    
+          
+            if not is_found:
+                print("Không tìm thấy xe để xóa!")
+                
+        except ValueError:
+            print("Lỗi: ID phải là một số nguyên!")
 
+
+    elif choice == '4':
+        print("Đã thoát chương trình. Tạm biệt!")
+        break 
+
+    else:
+        print("Lựa chọn không hợp lệ. Vui lòng nhập từ 1 đến 4.")
